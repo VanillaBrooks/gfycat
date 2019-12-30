@@ -255,6 +255,164 @@ impl Api {
     //
     // User feeds
     //
+    pub async fn published(&self, user_id: u64) -> ApiResult<Vec<String>> {
+        unimplemented! {}
+    }
+    pub async fn private_feed(&self) -> ApiResult<Vec<String>> {
+        unimplemented! {}
+    }
+    pub async fn timeline(&self) -> ApiResult<Vec<String>> {
+        unimplemented! {}
+    }
+
+    //
+    // User Folders
+    //
+
+    pub async fn all_folders(&self) -> ApiResult<Vec<String>> {
+        unimplemented! {}
+        // all other methods will be done via methods on the object
+    }
+
+    //
+    // Bookmarks
+    //
+
+    pub async fn bookmark_folders(&self) -> ApiResult<Vec<String>> {
+        unimplemented! {}
+        // all other methods will be done via methods on the object
+    }
+    pub async fn bookmark_folders_id(&self, bookmark_id: u64) -> ApiResult<Vec<String>> {
+        unimplemented! {}
+        // missing features are methods on objects
+    }
+
+    //
+    // Albums
+    //
+
+    pub async fn self_albums(&self) -> ApiResult<Vec<String>> {
+        unimplemented! {}
+    }
+    pub async fn get_album_contents(&self, user_id: u64, album_id: u64) -> ApiResult<Vec<String>> {
+        unimplemented! {}
+    }
+    pub async fn albums_by_link(&self, user_id: u64, link: &str) -> ApiResult<()> {
+        unimplemented!{}
+    }
+    pub async fn self_album_id(&self, user_id: u64, album_id: u64) -> ApiResult<()> {
+        unimplemented!{}
+    }
+    pub async fn create_album(&self, user_id: u64, album_id: u64) -> ApiResult<()> {
+        unimplemented!{}
+    }
+    pub async fn move_album_to_folder(&self, user_id: u64, album_id: u64) -> ApiResult<()> {
+        unimplemented!{}
+    }
+    
+    // skipped some
+    
+    //
+    // Getting gfycats
+    //
+    
+    pub async fn info(&self, gfy_id: u64) -> ApiResult<()> {
+        unimplemented!{}
+    }
+
+
+
+    
+}
+
+struct GfycatInfo {
+    #[serde(rename="gfyItem")]
+    gfy_item: GfyItem
+}
+
+struct GfyItem {
+    #[serde(rename="gfyId")]
+    gfy_id: u64,
+    #[serde(rename="gfyId")]
+    gfy_name: String,
+    #[serde(rename="gfyNumber")]
+    gfy_number: u64,
+    #[serde(rename="webmUrl")]
+    webm_url: String,
+    #[serde(rename="gifUrl")]
+    gif_url: String
+    #[serde(rename="mobileUrl")]
+    mobile_url: String
+    #[serde(rename="mobilePosterUrl")]
+    mobile_poster_url: String
+    #[serde(rename="miniUrl")]
+    mini_url: String
+    #[serde(rename="posterUrl")]
+    poster_url: String
+    #[serde(rename="thumb100PosterUrl")]
+    thumb_100_poster_url: String
+    #[serde(rename="max5mbGif")]
+    5mb_gif: String
+    #[serde(rename="max2mbGif")]
+    2mb_gid: String
+    #[serde(rename="max1mbGif")]
+    1mb_gif: String
+    #[serde(rename="gif100px")]
+    100px_gif: String
+    width: u64,
+    height: u64,
+    #[serde(rename="avgColor")]
+    avg_color: String
+    #[serde(rename="frameRate")]
+    fame_rate: String
+    #[serde(rename="numFrames")]
+    num_frames: u32
+    #[serde(rename="mp4Size")]
+    mp4_size: u32
+    #[serde(rename="webmSize")]
+    webm_size: u32
+    #[serde(rename="gifSize")]
+    gif_size: u32
+    source: u32
+    #[serde(rename="createDate")]
+    create_date: u32,
+    nsfw: String,
+    #[serde(rename="mp4Url")]
+    mp4_url: u32,
+    likes: String,
+    published: u32,
+    dislikes: String,
+    #[serde(rename="extraLemmas")]
+    extra_lemmas: u32,
+    md5: String,
+    views: u32,
+    tags: Vec<String>,
+    #[serde(rename="userName")]
+    username: u32,
+    title: String,
+    description: String,
+    #[serde(rename="languageText")]
+    language_text: String
+    #[serde(rename="languageCategories")]
+    language_categories: Option<String>,
+    subreddit: String,
+    #[serde(rename="redditId")]
+    reddit_id: String,
+    #[serde(rename="redditIdText")]
+    reddit_id_text: String,
+    #[serde(rename="redditIdText")]
+    domain_whitelist: Vec<String>,
+
+    
+
+    
+
+
+
+    
+
+
+
 }
 
 struct CreateUser;
