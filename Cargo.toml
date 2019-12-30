@@ -12,9 +12,8 @@ name = "gfycat"
 [dependencies]
 serde = {version="1.0.104", features=["derive"]}
 serde_json = "1.0.44"
-surf = "1.0.3"
-async-std = "1.4.0"
-
+reqwest = {version="0.10.0-alpha.2", features=["json"]}
+tokio = {version=  "0.2.0-alpha.6", features=["macros"]}
 
 [[bin]]
 name = "gfycat-binary"

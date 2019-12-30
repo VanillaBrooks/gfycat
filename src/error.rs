@@ -1,4 +1,4 @@
-use surf;
+use reqwest;
 
 macro_rules! from {
     ($root:path, $destination_enum:ident :: $path_:ident) => {
@@ -11,13 +11,13 @@ macro_rules! from {
 }
 
 #[derive(Debug)]
-pub enum AuthError{
-    Request(surf::Exception),
+pub enum AuthError {
+    Request(reqwest::Error),
     SerdeJson(serde_json::Error),
     IoError(std::io::Error),
-    Expiration
+    Expiration,
 }
 
-from!{surf::Exception, AuthError::Request}
-from!{serde_json::Error, AuthError::SerdeJson}
-from!{std::io::Error, AuthError::IoError}
+from! {reqwest::Error, AuthError::Request}
+from! {serde_json::Error, AuthError::SerdeJson}
+from! {std::io::Error, AuthError::IoError}
