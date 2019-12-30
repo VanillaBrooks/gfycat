@@ -298,125 +298,135 @@ impl Api {
         unimplemented! {}
     }
     pub async fn albums_by_link(&self, user_id: u64, link: &str) -> ApiResult<()> {
-        unimplemented!{}
+        unimplemented! {}
     }
     pub async fn self_album_id(&self, user_id: u64, album_id: u64) -> ApiResult<()> {
-        unimplemented!{}
+        unimplemented! {}
     }
     pub async fn create_album(&self, user_id: u64, album_id: u64) -> ApiResult<()> {
-        unimplemented!{}
+        unimplemented! {}
     }
     pub async fn move_album_to_folder(&self, user_id: u64, album_id: u64) -> ApiResult<()> {
-        unimplemented!{}
+        unimplemented! {}
     }
-    
+
     // skipped some
-    
+
     //
     // Getting gfycats
     //
-    
-    pub async fn info(&self, gfy_id: u64) -> ApiResult<()> {
-        unimplemented!{}
+
+    pub async fn info(&self, gfy_id: &str) -> ApiResult<GfycatInfo> {
+        let endpoint = ENDPOINT.to_owned() + "gfycats/" + &gfy_id.to_string();
+
+        let response = self
+            .client
+            .get(&endpoint)
+            .header("Autorization", &self.token)
+            .send()
+            .await?
+            .json::<GfycatInfo>()
+            .await?;
+
+        Ok(response)
     }
-
-
-
-    
 }
 
-struct GfycatInfo {
-    #[serde(rename="gfyItem")]
-    gfy_item: GfyItem
+#[derive(Deserialize, Debug, Default)]
+pub struct GfycatInfo {
+    #[serde(rename = "gfyItem")]
+    gfy_item: GfyItem,
 }
 
-struct GfyItem {
-    #[serde(rename="gfyId")]
-    gfy_id: u64,
-    #[serde(rename="gfyId")]
+#[derive(Deserialize, Debug, Default)]
+pub struct GfyItem {
+    #[serde(rename = "gfyId")]
+    gfy_id: String,
+    #[serde(rename = "gfyName")]
     gfy_name: String,
-    #[serde(rename="gfyNumber")]
-    gfy_number: u64,
-    #[serde(rename="webmUrl")]
+    #[serde(rename = "gfyNumber")]
+    gfy_number: String,
+    #[serde(rename = "webmUrl")]
     webm_url: String,
-    #[serde(rename="gifUrl")]
-    gif_url: String
-    #[serde(rename="mobileUrl")]
-    mobile_url: String
-    #[serde(rename="mobilePosterUrl")]
-    mobile_poster_url: String
-    #[serde(rename="miniUrl")]
-    mini_url: String
-    #[serde(rename="posterUrl")]
-    poster_url: String
-    #[serde(rename="thumb100PosterUrl")]
-    thumb_100_poster_url: String
-    #[serde(rename="max5mbGif")]
-    5mb_gif: String
-    #[serde(rename="max2mbGif")]
-    2mb_gid: String
-    #[serde(rename="max1mbGif")]
-    1mb_gif: String
-    #[serde(rename="gif100px")]
-    100px_gif: String
+    #[serde(rename = "gifUrl")]
+    gif_url: String,
+    #[serde(rename = "mobileUrl")]
+    mobile_url: String,
+    #[serde(rename = "mobilePosterUrl")]
+    mobile_poster_url: String,
+    #[serde(rename = "miniUrl")]
+    mini_url: String,
+    #[serde(rename = "posterUrl")]
+    poster_url: String,
+    #[serde(rename = "thumb100PosterUrl")]
+    thumb_100_poster_url: String,
+    #[serde(rename = "max5mbGif")]
+    five_mb_gif: String,
+    #[serde(rename = "max2mbGif")]
+    two_mb_gif: String,
+    #[serde(rename = "max1mbGif")]
+    one_mb_gif: String,
+    #[serde(rename = "gif100px")]
+    _100px_gif: String,
     width: u64,
     height: u64,
-    #[serde(rename="avgColor")]
-    avg_color: String
-    #[serde(rename="frameRate")]
-    fame_rate: String
-    #[serde(rename="numFrames")]
-    num_frames: u32
-    #[serde(rename="mp4Size")]
-    mp4_size: u32
-    #[serde(rename="webmSize")]
-    webm_size: u32
-    #[serde(rename="gifSize")]
-    gif_size: u32
-    source: u32
-    #[serde(rename="createDate")]
+    #[serde(rename = "avgColor")]
+    avg_color: String,
+    #[serde(rename = "frameRate")]
+    fame_rate: f64,
+    #[serde(rename = "numFrames")]
+    num_frames: f64,
+    #[serde(rename = "mp4Size")]
+    mp4_size: u32,
+    #[serde(rename = "webmSize")]
+    webm_size: u32,
+    #[serde(rename = "gifSize")]
+    gif_size: Option<u32>,
+    source: u32,
+    #[serde(rename = "createDate")]
     create_date: u32,
     nsfw: String,
-    #[serde(rename="mp4Url")]
-    mp4_url: u32,
+    #[serde(rename = "mp4Url")]
+    mp4_url: String,
     likes: String,
     published: u32,
     dislikes: String,
-    #[serde(rename="extraLemmas")]
-    extra_lemmas: u32,
-    md5: String,
+    #[serde(rename = "extraLemmas")]
+    extra_lemmas: String,
+    md5: Option<String>,
     views: u32,
     tags: Vec<String>,
-    #[serde(rename="userName")]
-    username: u32,
+    #[serde(rename = "userName")]
+    username: String,
     title: String,
     description: String,
-    #[serde(rename="languageText")]
-    language_text: String
-    #[serde(rename="languageCategories")]
-    language_categories: Option<String>,
-    subreddit: String,
-    #[serde(rename="redditId")]
-    reddit_id: String,
-    #[serde(rename="redditIdText")]
-    reddit_id_text: String,
-    #[serde(rename="redditIdText")]
+    #[serde(rename = "languageText")]
+    language_text: String,
+    #[serde(rename = "languageCategories")]
+    language_categories: Option<Vec<String>>,
+    subreddit: Option<String>,
+    #[serde(rename = "redditId")]
+    reddit_id: Option<String>,
+    #[serde(rename = "redditIdText")]
+    reddit_id_text: Option<String>,
+    #[serde(rename = "domainWhitelist")]
     domain_whitelist: Vec<String>,
-
-    
-
-    
-
-
-
-    
-
-
-
 }
 
-struct CreateUser;
-struct UpdateOperations;
+// gth": "3153",
+//         "connection": "keep-alive",
+//     },
+// }
+// [src\lib.rs:329] response.text().await = Ok(
+//     "{\"gfyItem\":{\"tags\":[\"new york\",\"timelapse\"],\"languageCategories\":[\"new york\",\"
+//     timelapse\"],\"domainWhitelist\":[],\"geoWhitelist\":[],\"published\":1,\"nsfw\":\"0\",\"gat
+//      ekeeper\":0,\"mp4Url\":\"https://giant.gfycat.com/AccomplishedFondKingsnake.mp4\",\"gifUrl\
+//      ":\"https://thumbs.gfycat.com/AccomplishedFondKingsnake-size_restricted.gif\",\"webmUrl\":\"https://giant.gfycat.com/AccomplishedFondKingsnake.webm\",\"webpUrl\":\"https://thumbs.gfycat.com/AccomplishedFondKingsnake.webp\",\"mobileUrl\":\"https://thumbs.gfycat.com/AccomplishedFondKingsnake-mobile.mp4\",\"mobilePosterUrl\":\"https://thumbs.gfycat.com/AccomplishedFondKingsnake-mobile.jpg\",\"extraLemmas\":\"\",\"thumb100PosterUrl\":\"https://thumbs.gfycat.com/AccomplishedFondKingsnake-mobile.jpg\",\"miniUrl\":\"https://thumbs.gfycat.com/AccomplishedFondKingsnake-mobile.mp4\",\"gif100px\":\"https://thumbs.gfycat.com/AccomplishedFondKingsnake-max-1mb.gif\",\"miniPosterUrl\":\"https://thumbs.gfycat.com/AccomplishedFondKingsnake-mobile.jpg\",\"max5mbGif\":\"https://thumbs.gfycat.com/AccomplishedFondKingsnake-size_restricted.gif\",\"title\":\"NYC Timelapse\",\"max2mbGif\":\"https://thumbs.gfycat.com/AccomplishedFondKingsnake-small.gif\",\"max1mbGif\":\"https://thumbs.gfycat.com/AccomplishedFondKingsnake-max-1mb.gif\",\"posterUrl\":\"https://thumbs.gfycat.com/AccomplishedFondKingsnake-poster.jpg\",\"languageText\":\"\",\"views\":25705,\"userName\":\"egster\",\"description\":\"\",\"hasTransparency\":false,\"hasAudio\":false,\"likes\":\"1\",\"dislikes\":\"0\",\"gfyNumber\":\"6742951\",\"gfyId\":\"accomplishedfondkingsnake\",\"gfyName\":\"AccomplishedFondKingsnake\",\"avgColor\":\"#252A28\",\"rating\":\"G\",\"gfySlug\":\"new-york\",\"width\":1920,\"height\":1080,\"frameRate\":30.03003,\"numFrames\":200.0,\"mp4Size\":14234971,\"webmSize\":2329134,\"createDate\":1561075293,\"source\":1,\"content_urls\":{\"max2mbGif\":{\"url\":\"https://thumbs.gfycat.com/AccomplishedFondKingsnake-small.gif\",\"size\":1817625,\"height\":169,\"width\":300},\"webp\":{\"url\":\"https://thumbs.gfycat.com/AccomplishedFondKingsnake.webp\",\"size\":1289824,\"height\":0,\"width\":0},\"max1mbGif\":{\"url\":\"https://thumbs.gfycat.com/AccomplishedFondKingsnake-max-1mb.gif\",\"size\":910232,\"height\":158,\"width\":280},\"100pxGif\":{\"url\":\"https://thumbs.gfycat.com/AccomplishedFondKingsnake-max-1mb.gif\",\"size\":910232,\"height\":158,\"width\":280},\"mobilePoster\":{\"url\":\"https://thumbs.gfycat.com/AccomplishedFondKingsnake-mobile.jpg\",\"size\":28159,\"height\":360,\"width\":640},\"mp4\":{\"url\":\"https://giant.gfycat.com/AccomplishedFondKingsnake.mp4\",\"size\":14234971,\"height\":1080,\"width\":1920},\"webm\":{\"url\":\"https://giant.gfycat.com/AccomplishedFondKingsnake.webm\",\"size\":2329134,\"height\":1080,\"width\":1920},\"max5mbGif\":{\"url\":\"https://thumbs.gfycat.com/AccomplishedFondKingsnake-size_restricted.gif\",\"size\":4234962,\"height\":250,\"width\":444},\"largeGif\":{\"url\":\"https://thumbs.gfycat.com/AccomplishedFondKingsnake-size_restricted.gif\",\"size\":4234962,\"height\":250,\"width\":444},\"mobile\":{\"url\":\"https://thumbs.gfycat.com/AccomplishedFondKingsnake-mobile.mp4\",\"size\":620154,\"height\":360,\"width\":640}},\"userData\":{\"name\":\"\",\"profileImageUrl\":\"\",\"url\":\"https://gfycat.com/@egster\",\"username\":\"egster\",\"followers\":1,\"subscription\":0,\"following\":0,\"profileUrl\":\"\",\"views\":25670,\"verified\":false}}}",
+// )
+
+// C:\Users\Daniel\github\gfycat>
+pub struct CreateUser;
+pub struct UpdateOperations;
 
 /// helper struct for loading credentials from json
 #[derive(Deserialize, Debug)]
@@ -558,3 +568,37 @@ fn init_test() -> (tokio::runtime::Runtime, Api) {
 //     dbg! {&left};
 //     assert! {left.is_ok()};
 // }
+
+
+#[test]
+fn info_1() {
+    let (tk, api) = init_test();
+    // not prefixed by @, will fail
+    let left = tk.block_on(api.info("cleartatteredbunny"));
+    dbg! {&left};
+    assert! {left.is_ok()};
+}
+#[test]
+fn info_2() {
+    let (tk, api) = init_test();
+    // not prefixed by @, will fail
+    let left = tk.block_on(api.info("paltryfrigidhalibut"));
+    dbg! {&left};
+    assert! {left.is_ok()};
+}
+#[test]
+fn info_3() {
+    let (tk, api) = init_test();
+    // not prefixed by @, will fail
+    let left = tk.block_on(api.info("exemplarytaneasteuropeanshepherd"));
+    dbg! {&left};
+    assert! {left.is_ok()};
+}
+#[test]
+fn info_4() {
+    let (tk, api) = init_test();
+    // not prefixed by @, will fail
+    let left = tk.block_on(api.info("denseslimafricanclawedfrog"));
+    dbg! {&left};
+    assert! {left.is_ok()};
+}
