@@ -316,7 +316,7 @@ impl Api {
     // Getting gfycats
     //
 
-    pub async fn info(&self, gfy_id: &str) -> ApiResult<GfycatInfo> {
+    pub async fn info(&self, gfy_id: &str) -> ApiResult<GfyItem> {
         let endpoint = ENDPOINT.to_owned() + "gfycats/" + &gfy_id.to_string();
 
         let response = self
@@ -328,7 +328,7 @@ impl Api {
             .json::<GfycatInfo>()
             .await?;
 
-        Ok(response)
+        Ok(response.gfy_item)
     }
 }
 
@@ -341,76 +341,76 @@ pub struct GfycatInfo {
 #[derive(Deserialize, Debug, Default)]
 pub struct GfyItem {
     #[serde(rename = "gfyId")]
-    gfy_id: String,
+    pub gfy_id: String,
     #[serde(rename = "gfyName")]
-    gfy_name: String,
+    pub gfy_name: String,
     #[serde(rename = "gfyNumber")]
-    gfy_number: String,
+    pub gfy_number: String,
     #[serde(rename = "webmUrl")]
-    webm_url: String,
+    pub webm_url: String,
     #[serde(rename = "gifUrl")]
-    gif_url: String,
+    pub gif_url: String,
     #[serde(rename = "mobileUrl")]
-    mobile_url: String,
+    pub mobile_url: String,
     #[serde(rename = "mobilePosterUrl")]
-    mobile_poster_url: String,
+    pub mobile_poster_url: String,
     #[serde(rename = "miniUrl")]
-    mini_url: String,
+    pub mini_url: String,
     #[serde(rename = "posterUrl")]
-    poster_url: String,
+    pub poster_url: String,
     #[serde(rename = "thumb100PosterUrl")]
-    thumb_100_poster_url: String,
+    pub thumb_100_poster_url: String,
     #[serde(rename = "max5mbGif")]
-    five_mb_gif: String,
+    pub five_mb_gif: String,
     #[serde(rename = "max2mbGif")]
-    two_mb_gif: String,
+    pub two_mb_gif: String,
     #[serde(rename = "max1mbGif")]
-    one_mb_gif: String,
+    pub one_mb_gif: String,
     #[serde(rename = "gif100px")]
-    _100px_gif: String,
-    width: u64,
-    height: u64,
+    pub _100px_gif: String,
+    pub width: u64,
+    pub height: u64,
     #[serde(rename = "avgColor")]
-    avg_color: String,
+    pub avg_color: String,
     #[serde(rename = "frameRate")]
-    fame_rate: f64,
+    pub fame_rate: f64,
     #[serde(rename = "numFrames")]
-    num_frames: f64,
+    pub num_frames: f64,
     #[serde(rename = "mp4Size")]
-    mp4_size: u32,
+    pub mp4_size: u32,
     #[serde(rename = "webmSize")]
-    webm_size: u32,
+    pub webm_size: u32,
     #[serde(rename = "gifSize")]
-    gif_size: Option<u32>,
-    source: u32,
+    pub gif_size: Option<u32>,
+    pub source: u32,
     #[serde(rename = "createDate")]
-    create_date: u32,
-    nsfw: String,
+    pub create_date: u32,
+    pub nsfw: String,
     #[serde(rename = "mp4Url")]
-    mp4_url: String,
-    likes: String,
-    published: u32,
-    dislikes: String,
+    pub mp4_url: String,
+    pub likes: String,
+    pub published: u32,
+    pub dislikes: String,
     #[serde(rename = "extraLemmas")]
     extra_lemmas: String,
-    md5: Option<String>,
-    views: u32,
-    tags: Vec<String>,
+    pub md5: Option<String>,
+    pub views: u32,
+    pub tags: Vec<String>,
     #[serde(rename = "userName")]
-    username: String,
-    title: String,
+    pub username: String,
+    pub title: String,
     description: String,
     #[serde(rename = "languageText")]
-    language_text: String,
+    pub language_text: String,
     #[serde(rename = "languageCategories")]
-    language_categories: Option<Vec<String>>,
-    subreddit: Option<String>,
+    pub language_categories: Option<Vec<String>>,
+    pub subreddit: Option<String>,
     #[serde(rename = "redditId")]
-    reddit_id: Option<String>,
+    pub reddit_id: Option<String>,
     #[serde(rename = "redditIdText")]
-    reddit_id_text: Option<String>,
+    pub reddit_id_text: Option<String>,
     #[serde(rename = "domainWhitelist")]
-    domain_whitelist: Vec<String>,
+    pub domain_whitelist: Vec<String>,
 }
 
 // gth": "3153",
