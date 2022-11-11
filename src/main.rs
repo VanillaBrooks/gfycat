@@ -3,7 +3,7 @@ use gfycat;
 use serde::{Deserialize, Serialize};
 use tokio;
 
-#[tokio::main]
+#[tokio::main(flavor = "current_thread")]
 async fn main() {
     let api = gfycat::LoadCredentials::new(std::path::Path::new("config.json")).unwrap();
     let gc = gfycat::Api::from_credentials(&api).await.unwrap();

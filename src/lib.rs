@@ -447,60 +447,60 @@ impl LoadCredentials {
 /// Information returend by Api.user_details()
 #[derive(Debug, Deserialize, Default)]
 pub struct User {
-    userid: u64,
-    username: String,
-    description: String,
+    pub userid: u64,
+    pub username: String,
+    pub description: String,
     #[serde(rename = "profileUrl")]
-    profile_url: String,
-    name: String,
-    views: u64,
-    email_verified: bool,
-    url: String,
+    pub profile_url: String,
+    pub name: String,
+    pub views: u64,
+    pub email_verified: bool,
+    pub url: String,
     #[serde(rename = "createDate")]
-    create_date: u32,
+    pub create_date: u32,
     #[serde(rename = "profileImageUrl")]
-    profile_image_url: String,
-    verified: bool,
-    followers: u32,
-    following: u32,
+    pub profile_image_url: String,
+    pub verified: bool,
+    pub followers: u32,
+    pub following: u32,
 }
 
 /// Information returend by Api.user_details()
 #[derive(Debug, Deserialize, Default)]
 pub struct SelfUser {
-    userid: u64,
-    username: String,
-    description: String,
+    pub userid: u64,
+    pub username: String,
+    pub description: String,
     #[serde(rename = "profileUrl")]
-    profile_url: String,
-    name: String,
-    views: u64,
-    email_verified: bool,
-    url: String,
+    pub profile_url: String,
+    pub name: String,
+    pub views: u64,
+    pub email_verified: bool,
+    pub url: String,
     #[serde(rename = "createDate")]
-    create_date: u32,
+    pub create_date: u32,
     #[serde(rename = "profileImageUrl")]
-    profile_image_url: String,
-    verified: bool,
-    followers: u32,
-    following: u32,
+    pub profile_image_url: String,
+    pub verified: bool,
+    pub followers: u32,
+    pub following: u32,
     #[serde(rename = "geoWhitelist")]
-    geo_whitelist: String,
+    pub geo_whitelist: String,
     #[serde(rename = "domainWhitelist")]
-    domain_whitelist: String,
+    pub domain_whitelist: String,
     #[serde(rename = "associatedProviders")]
-    associated_providers: String,
+    pub associated_providers: String,
     #[serde(rename = "iframeProfileImageVisible")]
-    iframe_profile_Image_visible: String,
+    pub iframe_profile_image_visible: String,
 }
 
-#[allow(dead_code)]
-fn init_test() -> (tokio::runtime::Runtime, Api) {
-    let tk = tokio::runtime::Runtime::new().unwrap();
-    let cred = LoadCredentials::new(std::path::Path::new("config.json")).unwrap();
-    let api = tk.block_on(Api::from_credentials(&cred)).unwrap();
-    (tk, api)
-}
+//#[allow(dead_code)]
+//fn init_test() -> (tokio::runtime::Runtime, Api) {
+//    let tk = tokio::runtime::Runtime::new().unwrap();
+//    let cred = LoadCredentials::new(std::path::Path::new("config.json")).unwrap();
+//    let api = tk.block_on(Api::from_credentials(&cred)).unwrap();
+//    (tk, api)
+//}
 
 // #[test]
 // fn email_verified() {
